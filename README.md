@@ -13,7 +13,5 @@ A simple and efficient URL shortener built with **FastAPI** and **MongoDB**, all
 ## 🛠️ Tech Stack
 
 - **Backend**: FastAPI (Python)
-- **Database**: MongoDB
-- **Dependencies**: Pydantic, Motor (MongoDB async driver), Uvicorn
+- **Dependencies**: Pydantic, Motor (async driver), Uvicorn
 
-## 📁 Project Structure
