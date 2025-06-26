@@ -27,6 +27,9 @@ app = FastAPI(title="URL Shortener Service")
 from starlette.applications import Starlette
 from starlette.routing import Mount
 from starlette.middleware import Middleware
+from pathlib import Path
+
+templates = Jinja2Templates(directory=Path(__file__).parent / "templates")
 
 # Create a wrapper Starlette application
 wsgi_app = Starlette(
@@ -51,10 +54,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 # Mount static files
-app.mount("/static", StaticFiles(directory="UrlNinja/static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 
 # Set up Jinja2 templates
-templates = Jinja2Templates(directory="UrlNinja/templates")
+templates = Jinja2Templates(directory="templates")
 
 
 # In-memory storage for URL mappings
@@ -135,7 +139,7 @@ def validate_url(url: str) -> bool:
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
     """Render the home page."""
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(r"index.html", {"request": request})
 
 
 @app.post("/api/shorten", response_model=URLOutput)
